@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .info {
+            margin-top: 20px;
+        }
+        .sidebar {
+            width: 1px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background-color: white;
+            color: black;
+            overflow-y: auto;
+            transition: width 1s, background-color 4s;
+            border-right: 0px solid #ccc;
+        }
+        .sidebar:hover {
+            width: 200px;
+            background-color: grey;
+            color: white;
+        }
+        .sidebar a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+        .sidebar:hover a {
+            color: white;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar h2 {
+            display: none;
+            padding: 20px;
+            font-size: 18px;
+        }
+        .sidebar:hover h2 {
+            display: block;
+        }
+        .sidebar .names {
+            display: none;
+        }
+        .sidebar:hover .names {
+            display: block;
+        }
+        .main-content {
+            margin-left: 50px;
+            flex-grow: 1;
+            transition: margin-left 0.3s;
+            padding: 20px;
+        }
+        .sidebar:hover + .main-content {
+            margin-left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Student Names</h2>
+        <div class="names">
+            <a href="#!" onclick="document.getElementById('studentName').value='Khalid Qureshi'; showStudentInfo();">Khalid Qureshi</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Kashif'; showStudentInfo();">Kashif</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Zafar'; showStudentInfo();">Zafar</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Iqbal'; showStudentInfo();">Iqbal</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Fahad'; showStudentInfo();">Fahad</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Aqib'; showStudentInfo();">Aqib</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='M Abdullah'; showStudentInfo();">M Abdullah</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Ali'; showStudentInfo();">Ali</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Babar'; showStudentInfo();">Babar</a>
+            <a href="#!" onclick="document.getElementById('studentName').value='Habeel'; showStudentInfo();">Habeel</a>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="container">
+            <h1>Student Information</h1>
+            <form id="studentForm">
+                <label for="studentName">Enter Student Name:</label>
+                <input type="text" id="studentName" name="studentName" required>
+                <button type="button" onclick="showStudentInfo()">Submit</button>
+            </form>
+            <div id="studentInfo" class="info"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample student data
+        const students = {
+            "Khalid Qureshi": {
+                city: "Lahore",
+                fatherName: "Danyal Qureshi",
+                marks: {
+                    Math: 95,
+                    English: 88,
+                    Science: 92,
+                    History: 85
+                }
+            },
+            "Kashif": {
+                city: "Lahore",
+                fatherName: "M Ahmed",
+                marks: {
+                    Math: 89,
+                    English: 90,
+                    Science: 93,
+                    History: 87
+                }
+            },
+            "Zafar": {
+                city: "Faisalabad",
+                fatherName: "M Ali",
+                marks: {
+                    Math: 43,
+                    English: 89,
+                    Science: 70,
+                    History: 57
+                }
+            },
+            "Iqbal": {
+                city: "Faisalabad",
+                fatherName: "Zaman Khan",
+                marks: {
+                    Math: 78,
+                    English: 68,
+                    Science: 45,
+                    History: 82
+                }
+            },
+            "Fahad": {
+                city: "Lahore",
+                fatherName: "Zakir Ali",
+                marks: {
+                    Math: 89,
+                    English: 70,
+                    Science: 63,
+                    History: 47
+                }
+            },
+            "Aqib": {
+                city: "Islamabad",
+                fatherName: "Abdullah",
+                marks: {
+                    Math: 81,
+                    English: 30,
+                    Science: 97,
+                    History: 57
+                }
+            },
+            "M Abdullah": {
+                city: "Gujranwala",
+                fatherName: "M Basharat",
+                marks: {
+                    Math: 84,
+                    English: 30,
+                    Science: 83,
+                    History: 93
+                }
+            },
+            "Ali": {
+                city: "Jhang",
+                fatherName: "Abu Huraira",
+                marks: {
+                    Math: 85,
+                    English: 56,
+                    Science: 46,
+                    History: 35
+                }
+            },
+            "Babar": {
+                city: "Lahore",
+                fatherName: "Ahmed",
+                marks: {
+                    Math: 62,
+                    English: 67,
+                    Science: 63,
+                    History: 52
+                }
+            },
+            "Habeel": {
+                city: "Quetta",
+                fatherName: "Wahab",
+                marks: {
+                    Math: 63,
+                    English: 46,
+                    Science: 62,
+                    History: 66
+                }
+            }
+        };
+
+        function showStudentInfo() {
+            const studentName = document.getElementById('studentName').value;
+            const infoDiv = document.getElementById('studentInfo');
+
+            if (students[studentName]) {
+                const student = students[studentName];
+                let totalMarks = 0;
+                let subjectList = '';
+
+                for (const [subject, mark] of Object.entries(student.marks)) {
+                    subjectList += `${subject}: ${mark}<br>`;
+                    totalMarks += mark;
+                }
+
+                infoDiv.innerHTML = `
+                    <h2>Information for ${studentName}</h2>
+                    <p><strong>Main City:</strong> ${student.city}</p>
+                    <p><strong>Father's Name:</strong> ${student.fatherName}</p>
+                    <p><strong>Total Marks:</strong> ${totalMarks}</p>
+                    <p><strong>Marks in Subjects:</strong><br>${subjectList}</p>
+                `;
+            } else {
+                infoDiv.innerHTML = `<p>No information found for student named "${studentName}".</p>`;
+            }
+        }
+    </script>
+    
+</body>
+</html>
